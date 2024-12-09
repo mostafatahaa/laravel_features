@@ -4,7 +4,7 @@ namespace App\Http\Requests\Coupons;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateCouponRequest extends FormRequest
+class UpdateCouponRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,7 @@ class CreateCouponRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'code' => ['required', 'string', 'max:100', 'unique:coupons,code'],
+            'code' => ['required', 'string', 'max:100', 'unique:coupons,code,' . $this->id],
             'discount' => ['required', 'numeric', 'min:0', 'max:99999.99'],
             'expired_at' => ['nullable', 'date', 'after:today'],
             'is_for_all_users' => ['required', 'boolean'],
@@ -36,5 +36,6 @@ class CreateCouponRequest extends FormRequest
             'companies' => ['nullable', 'array'],
             'companies.*' => ['integer', 'exists:companies,id'],
         ];
+
     }
 }
