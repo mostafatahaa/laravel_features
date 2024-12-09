@@ -13,15 +13,15 @@ return new class extends Migration {
         Schema::create('coupon_usage', function (Blueprint $table) {
 
             $table->id();
-            $table->unsignedSmallInteger('coupon_id')->nullable();
+            $table->unsignedBigInteger('coupon_id')->nullable();
             $table->string('coupon_code', 100);
             $table->unsignedBigInteger('user_id');
             $table->timestamp('used_at')->nullable();
 
-            $table->foreign('coupon_id')->references('id')->on('coupons')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('coupon_id')->references('id')->on('coupons')->onDelete('set null');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
-            $table->unique(['coupon_id', 'coupon_code']);
+            $table->unique(['coupon_id', 'user_id']);
 
         });
     }

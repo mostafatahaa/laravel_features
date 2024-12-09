@@ -12,11 +12,14 @@ return new class extends Migration {
     {
         Schema::create('coupon_company', function (Blueprint $table) {
             $table->id();
-            $table->unsignedSmallInteger('coupon_id');
+            $table->unsignedBigInteger('coupon_id');
             $table->unsignedBigInteger('company_id');
 
             $table->foreign('coupon_id')->references('id')->on('coupons')->onDelete('cascade');
-            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
+            $table->foreign('company_id')->references('id')->on('shipping_company')->onDelete('cascade');
+
+            $table->unique(['coupon_id', 'company_id']);
+
         });
     }
 
